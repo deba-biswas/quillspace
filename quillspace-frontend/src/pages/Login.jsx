@@ -71,7 +71,7 @@ export default function Login({ setIsLoggedIn, setUser }) {
         <span className="hidden sm:inline">Back to Home</span>
       </Link>
 
-      <div className="bg-white w-full max-w-sm rounded-2xl p-8 shadow-sm border border-teal-100 mt-8">
+      <div className="bg-ink-bg w-full max-w-sm rounded-2xl p-8 shadow-sm border border-teal-100 mt-8">
         {/* Application logo */}
         <div className="flex items-center justify-center gap-2 mb-8 font-serif text-3xl font-bold">
           <Feather className="w-8 h-8" />
