@@ -9,6 +9,7 @@ import CreatePost from "./pages/CreatePost";
 import ReadPost from "./pages/ReadPost";
 import Posts from "./pages/Posts";
 import EditPost from "./pages/EditPost";
+import Account from "./pages/Account";
 
 const PlaceholderPage = ({ title }) => (
   <div className="p-8">
@@ -66,7 +67,7 @@ function App() {
               <Route path="edit/:id" element={<EditPost />} />
               <Route
                 path="account"
-                element={<PlaceholderPage title="Account" />}
+                element={<Account user={user} setUser={setUser} />}
               />
               <Route
                 path="settings"
