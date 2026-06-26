@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-bg: #F6F3E6;
+  --color-ink-sidebar: #CBE8E0;
+  --color-ink-btn: #528F65;
+  --color-ink-text: #112318;
+  --color-ink-card: #FFFFFF;
+
+  --font-serif: "Merriweather", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+/* Quill editor customization */
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+.ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  background-color: #fafafa;
+}
+
+.ql-editor {
+  min-height: 500px;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
