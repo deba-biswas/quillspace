@@ -36,7 +36,7 @@ export default function Home() {
   }
 
   return (
-    <div className="p-8 max-w-3xl font-sans text-ink-text">
+    <div className="p-8 max-w-5xl mx-auto font-sans text-ink-text">
       <h2 className="text-2xl font-bold mb-6 font-serif">Your Feed</h2>
 
       {posts.length === 0 ? (
