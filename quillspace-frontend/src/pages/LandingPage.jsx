@@ -3,44 +3,48 @@ import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-ink-bg font-sans text-ink-text flex flex-col">
+    <div className="min-h-screen bg-ink-bg dark:bg-ink-dark-bg text-ink-text dark:text-white font-sans transition-colors duration-300 flex flex-col">
       {/* Navigation */}
-      <nav className="flex justify-between items-center px-8 py-6">
+      <nav className="flex justify-between items-center px-8 py-6 border-b border-transparent dark:border-ink-dark-border">
         <div className="flex items-center gap-2 font-serif text-2xl font-bold">
           <Feather className="w-7 h-7 text-ink-btn" />
-          QuillSpace
+          <span>QuillSpace</span>
         </div>
 
         <div className="flex items-center gap-6 font-medium text-sm">
-          <Link to="/login" className="hover:text-ink-btn transition-colors">
+          <Link
+            to="/login"
+            className="text-gray-700 dark:text-gray-300 hover:text-ink-btn transition-colors"
+          >
             Log In
           </Link>
 
           <Link
             to="/signup"
-            className="bg-ink-btn text-white px-5 py-2.5 rounded-lg hover:bg-opacity-90 transition-all shadow-sm"
+            className="bg-ink-btn text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-300 shadow-sm dark:shadow-black/30"
           >
             Get Started
           </Link>
         </div>
       </nav>
 
-      {/* Hero section */}
+      {/* Hero */}
       <main className="flex-1 flex items-center justify-center px-8 py-16">
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Hero content */}
+        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left */}
           <div className="space-y-8">
-            <h1 className="font-serif text-5xl md:text-6xl font-bold leading-tight text-gray-900">
-              Where good ideas <br />
-              <span className="text-ink-btn relative">
+            <h1 className="font-serif text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white">
+              Where good ideas
+              <br />
+              <span className="relative text-ink-btn">
                 find their readers.
                 <svg
-                  className="absolute w-full h-3 -bottom-1 left-0 text-ink-sidebar/60 -z-10"
+                  className="absolute left-0 -bottom-1 w-full h-3 text-ink-sidebar/60 dark:text-[#3F5B56] -z-10"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
                 >
                   <path
-                    d="M0 5 Q 50 10 100 5"
+                    d="M0 5 Q50 10 100 5"
                     stroke="currentColor"
                     strokeWidth="8"
                     fill="none"
@@ -49,43 +53,44 @@ export default function LandingPage() {
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 max-w-md leading-relaxed">
-              QuillSpace is an open platform where readers find dynamic
-              thinking, and where expert and undiscovered voices can share their
-              writing on any topic.
+            <p className="text-lg leading-8 text-gray-600 dark:text-gray-400 max-w-lg">
+              QuillSpace is an open platform where readers discover thoughtful
+              ideas and writers—from experts to first-time authors—share stories
+              that inspire, educate, and connect people.
             </p>
 
-            <div className="flex items-center gap-4 pt-4">
+            <div className="flex gap-4 pt-2">
               <Link
                 to="/signup"
-                className="flex items-center gap-2 bg-ink-btn text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center gap-2 bg-ink-btn text-white px-7 py-3 rounded-xl font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-md dark:shadow-black/30"
               >
-                Start Reading <ArrowRight className="w-4 h-4" />
+                Start Reading
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
-          {/* Feature highlights */}
+          {/* Right */}
           <div className="relative">
-            <div className="absolute inset-0 bg-ink-sidebar rounded-4xl transform rotate-3 scale-105 -z-10 opacity-50"></div>
+            <div className="absolute inset-0 bg-ink-sidebar dark:bg-ink-dark-sidebar rounded-4xl rotate-3 scale-105 opacity-50 -z-10"></div>
 
-            <div className="bg-white p-8 rounded-4xl shadow-xl border border-teal-50 space-y-6">
+            <div className="bg-white dark:bg-ink-dark-card rounded-4xl border border-teal-50 dark:border-ink-dark-border shadow-xl dark:shadow-black/30 p-8 space-y-4 transition-colors duration-300">
               <FeatureCard
-                icon={<Edit3 className="text-ink-btn w-6 h-6" />}
+                icon={<Edit3 className="w-6 h-6 text-ink-btn" />}
                 title="Sleek Editor"
-                desc="A distraction-free rich text editor designed for focus."
+                desc="Write beautifully with a distraction-free editor built for focus."
               />
 
               <FeatureCard
-                icon={<Users className="text-ink-btn w-6 h-6" />}
-                title="Vibrant Community"
-                desc="Connect with readers who care about your niche."
+                icon={<Users className="w-6 h-6 text-ink-btn" />}
+                title="Growing Community"
+                desc="Share your thoughts and connect with readers around the world."
               />
 
               <FeatureCard
-                icon={<BookOpen className="text-ink-btn w-6 h-6" />}
-                title="Curated Feeds"
-                desc="Discover tailored content that matters to you."
+                icon={<BookOpen className="w-6 h-6 text-ink-btn" />}
+                title="Curated Stories"
+                desc="Explore quality articles tailored to your interests."
               />
             </div>
           </div>
@@ -95,14 +100,22 @@ export default function LandingPage() {
   );
 }
 
-// Reusable feature card displayed on the landing page
-const FeatureCard = ({ icon, title, desc }) => (
-  <div className="flex gap-4 items-start p-4 hover:bg-ink-bg/50 rounded-xl transition-colors cursor-default">
-    <div className="p-3 bg-ink-bg rounded-lg">{icon}</div>
+function FeatureCard({ icon, title, desc }) {
+  return (
+    <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-ink-bg/50 dark:hover:bg-[#313943] transition-colors">
+      <div className="p-3 rounded-xl bg-ink-bg dark:bg-ink-dark-sidebar">
+        {icon}
+      </div>
 
-    <div>
-      <h3 className="font-bold text-gray-900 mb-1">{title}</h3>
-      <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+      <div>
+        <h3 className="font-bold text-gray-900 dark:text-white mb-1">
+          {title}
+        </h3>
+
+        <p className="text-sm leading-6 text-gray-500 dark:text-gray-400">
+          {desc}
+        </p>
+      </div>
     </div>
-  </div>
-);
+  );
+}

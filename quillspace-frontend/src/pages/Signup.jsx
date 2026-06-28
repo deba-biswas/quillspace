@@ -27,14 +27,15 @@ export default function Signup() {
     try {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ name, email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to the login page with a success message
         navigate("/login", {
           state: {
             successMessage: "Account created successfully! Please log in.",
@@ -43,7 +44,7 @@ export default function Signup() {
       } else {
         setError(data.message || "Failed to create account.");
       }
-    } catch (err) {
+    } catch {
       setError("Cannot connect to the server.");
     } finally {
       setIsLoading(false);
@@ -51,110 +52,109 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-ink-sidebar flex flex-col items-center justify-center p-4 font-sans text-ink-text relative">
-      {/* Back navigation */}
+    <div className="min-h-screen bg-ink-sidebar dark:bg-ink-dark-bg flex flex-col items-center justify-center p-4 font-sans text-ink-text dark:text-white transition-colors duration-300 relative">
+      {/* Back */}
       <Link
         to="/"
-        className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 text-ink-text hover:text-ink-btn font-semibold transition-colors"
+        className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 text-ink-text dark:text-white hover:text-ink-btn transition-colors"
       >
         <ArrowLeft className="w-5 h-5" />
         <span className="hidden sm:inline">Back to Home</span>
       </Link>
 
-      <div className="bg-ink-bg w-full max-w-sm rounded-2xl p-8 shadow-sm border border-teal-100 mt-8">
-        {/* Application logo */}
-        <div className="flex items-center justify-center gap-2 mb-6 font-serif text-3xl font-bold">
-          <Feather className="w-8 h-8" />
+      {/* Card */}
+      <div className="w-full max-w-sm bg-ink-bg dark:bg-ink-dark-card rounded-2xl p-8 shadow-xl dark:shadow-black/30 border border-teal-100 dark:border-ink-dark-border transition-colors duration-300">
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-2 mb-8 font-serif text-3xl font-bold">
+          <Feather className="w-8 h-8 text-ink-btn" />
           <span>QuillSpace</span>
         </div>
 
-        {/* Signup error message */}
+        {/* Error */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm font-medium flex items-start gap-2">
-            <AlertCircle className="w-5 h-5 shrink-0" />
+          <div className="mb-5 p-3 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-start gap-2 text-sm">
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Signup form */}
-        <form onSubmit={handleSignup} className="space-y-4">
-          <h2 className="text-sm font-semibold">Create an account</h2>
+        <form onSubmit={handleSignup} className="space-y-5">
+          <h2 className="text-lg font-semibold">Create your account</h2>
 
-          <div>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              placeholder="Full Name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
-            />
-          </div>
+          {/* Name */}
+          <input
+            type="text"
+            required
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar text-ink-text dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ink-btn transition-colors"
+          />
 
-          <div>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Email or address"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
-            />
-          </div>
+          {/* Email */}
+          <input
+            type="email"
+            required
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar text-ink-text dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ink-btn transition-colors"
+          />
 
+          {/* Password */}
           <div>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={8}
                 placeholder="Password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar text-ink-text dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ink-btn transition-colors"
               />
 
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-white transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="w-4 h-4" />
+                  <EyeOff className="w-5 h-5" />
                 ) : (
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-5 h-5" />
                 )}
               </button>
             </div>
 
             <p
-              className={`text-xs mt-2 font-medium ${
+              className={`mt-2 text-xs ${
                 password.length > 0 && password.length < 8
                   ? "text-red-500"
-                  : "text-gray-500"
+                  : "text-gray-500 dark:text-gray-400"
               }`}
             >
               Must be at least 8 characters.
             </p>
           </div>
 
-          <div className="pt-2">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-ink-btn text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-opacity-90 transition-opacity disabled:opacity-50"
-            >
-              {isLoading ? "SIGNING UP..." : "SIGN UP"}
-            </button>
-          </div>
+          {/* Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-lg bg-ink-btn text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-sm dark:shadow-black/30 disabled:opacity-50"
+          >
+            {isLoading ? "Creating Account..." : "Create Account"}
+          </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-gray-200/60 text-center">
-          <p className="text-sm text-gray-600 font-medium">
+        {/* Footer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-ink-dark-border text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-ink-btn font-bold hover:underline"
+              className="font-semibold text-ink-btn hover:underline"
             >
               Log in
             </Link>

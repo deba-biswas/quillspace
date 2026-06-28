@@ -1,14 +1,24 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Light */
+
   --color-ink-bg: #F6F3E6;
   --color-ink-sidebar: #CBE8E0;
   --color-ink-btn: #528F65;
   --color-ink-text: #112318;
   --color-ink-card: #FFFFFF;
 
-  --font-serif: "Merriweather", serif;
-  --font-sans: "Inter", sans-serif;
+  /* Dark */
+
+  --color-ink-dark-bg: #1B1F24;
+  --color-ink-dark-sidebar: #242B33;
+  --color-ink-dark-card: #2A313A;
+  --color-ink-dark-btn: #59A36A;
+  --color-ink-dark-text: #F3F4F6;
+  --color-ink-dark-muted: #A8B3C2;
+  --color-ink-dark-border: #3A434D;
 }
 
 /* Quill editor customization */
@@ -26,4 +36,39 @@
   min-height: 500px;
   font-size: 1.125rem;
   line-height: 1.7;
+}
+
+.dark .ql-toolbar.ql-snow{
+  background:#242B33;
+  border-bottom:1px solid #3A434D !important;
+}
+
+.dark .ql-container.ql-snow{
+  background:#2A313A;
+}
+
+.dark .ql-editor{
+  color:#F3F4F6;
+}
+
+.dark .ql-picker{
+  color:#F3F4F6;
+}
+
+.dark .ql-stroke{
+  stroke:#F3F4F6;
+}
+
+.dark .ql-fill{
+  fill:#F3F4F6;
+}
+
+.dark .ql-tooltip{
+  background:#242B33;
+  border:1px solid #3A434D;
+  color:white;
+}
+
+.dark .ql-editor::before{
+  color:#94A3B8;
 }

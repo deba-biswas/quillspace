@@ -9,7 +9,7 @@ export default function MainLayout({
   setUser,
 }) {
   return (
-    <div className="flex min-h-screen bg-ink-bg font-sans text-ink-text">
+    <div className="flex min-h-screen bg-ink-bg dark:bg-ink-dark-bg font-sans text-ink-text dark:text-white transition-colors duration-300">
       <Sidebar setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
 
       <div className="flex-1 ml-64 flex flex-col min-h-screen">
@@ -20,7 +20,7 @@ export default function MainLayout({
           setUser={setUser}
         />
 
-        <main className="flex-1">
+        <main className="flex-1 transition-colors duration-300">
           <Outlet />
         </main>
       </div>

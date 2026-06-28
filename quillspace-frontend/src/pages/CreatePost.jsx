@@ -69,7 +69,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto font-sans text-ink-text">
+    <div className="p-8 max-w-4xl mx-auto font-sans text-ink-text dark:text-white transition-colors duration-300">
       <h2 className="text-2xl font-bold mb-6 font-serif">Create New Post</h2>
 
       <form onSubmit={handleCreatePost} className="space-y-6">
@@ -80,20 +80,21 @@ export default function CreatePost() {
           placeholder="Title of your story..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full text-4xl font-bold placeholder-gray-300 border-none focus:outline-none bg-transparent mb-4"
+          className="w-full text-4xl font-bold placeholder-gray-300 dark:placeholder-gray-500 border-none focus:outline-none bg-transparent text-ink-text dark:text-white mb-4"
         />
 
         {/* Rich text editor */}
-        <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
+        <div className="bg-white dark:bg-ink-dark-card rounded-lg overflow-hidden border border-gray-200 dark:border-ink-dark-border transition-colors duration-300">
           <div ref={editorRef} className="text-base" />
         </div>
 
         {/* Post actions */}
-        <div className="flex items-center justify-between pt-8 border-t border-gray-200">
+        <div className="flex items-center justify-between pt-8 border-t border-gray-200 dark:border-ink-dark-border">
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 cursor-pointer text-ink-btn hover:text-opacity-80 font-medium transition-colors">
+            <label className="flex items-center gap-2 cursor-pointer text-ink-btn hover:opacity-80 font-medium transition-colors">
               <Upload className="w-5 h-5" />
               <span>{image ? "Change Cover Image" : "Add Cover Image"}</span>
+
               <input
                 type="file"
                 accept="image/*"
@@ -103,7 +104,7 @@ export default function CreatePost() {
             </label>
 
             {image && (
-              <span className="text-sm text-gray-500 truncate max-w-50">
+              <span className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-50">
                 {image.name}
               </span>
             )}
@@ -111,7 +112,7 @@ export default function CreatePost() {
 
           <button
             type="submit"
-            className="bg-ink-btn text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-opacity-90 flex items-center gap-2 transition-all shadow-sm"
+            className="bg-ink-btn text-white px-6 py-2.5 rounded-lg font-semibold hover:opacity-90 flex items-center gap-2 transition-all duration-300 shadow-sm dark:shadow-black/30"
           >
             <Save className="w-4 h-4" />
             Publish Post

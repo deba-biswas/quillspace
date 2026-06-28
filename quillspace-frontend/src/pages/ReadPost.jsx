@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Heart, MessageCircle, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Heart,
+  MessageCircle,
+  Loader2,
+  Calendar,
+} from "lucide-react";
 
 export default function ReadPost() {
-  // Retrieve the post ID from the route parameters
   const { id } = useParams();
 
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch the selected post when the component loads
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -39,7 +43,9 @@ export default function ReadPost() {
 
   if (!post) {
     return (
-      <div className="p-8 text-center text-xl font-bold">Post not found.</div>
+      <div className="flex justify-center items-center h-screen text-2xl font-bold text-gray-500 dark:text-gray-400">
+        Post not found.
+      </div>
     );
   }
 
@@ -52,55 +58,89 @@ export default function ReadPost() {
   const authorName = post.authorName || "Anonymous User";
 
   return (
-    <article className="p-8 max-w-3xl font-sans text-ink-text pb-20">
+    <article className="max-w-4xl mx-auto px-8 py-10 font-sans text-ink-text dark:text-white transition-colors duration-300">
+      {/* Back */}
       <Link
         to="/"
-        className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-ink-btn mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-ink-btn mb-10 transition-colors"
       >
-        <ArrowLeft className="w-4 h-4" /> Back to Feed
+        <ArrowLeft className="w-4 h-4" />
+        Back to Feed
       </Link>
 
-      <h1 className="text-4xl md:text-5xl font-bold font-serif mb-6 leading-tight">
+      {/* Title */}
+      <h1 className="font-serif text-5xl font-bold leading-tight mb-8">
         {post.title}
       </h1>
 
-      {/* Post metadata */}
-      <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-200">
-        <img
-          src={`https://api.dicebear.com/7.x/notionists/svg?seed=${authorName}`}
-          alt={authorName}
-          className="w-12 h-12 rounded-full bg-gray-200"
-        />
+      {/* Author */}
+      <div className="flex items-center justify-between border-b border-gray-200 dark:border-ink-dark-border pb-8 mb-10">
+        <div className="flex items-center gap-4">
+          <img
+            src={`https://api.dicebear.com/7.x/notionists/svg?seed=${authorName}`}
+            alt={authorName}
+            className="w-14 h-14 rounded-full bg-gray-200 dark:bg-ink-dark-sidebar"
+          />
 
-        <div>
-          <p className="font-bold text-gray-900">{authorName}</p>
-          <p className="text-sm text-gray-500">{formattedDate}</p>
+          <div>
+            <h3 className="font-semibold text-lg">{authorName}</h3>
+
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <Calendar className="w-4 h-4" />
+              {formattedDate}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Cover image */}
+      {/* Cover */}
       {post.imageUrl && (
         <img
           src={`http://localhost:5000${post.imageUrl}`}
-          alt="Cover"
-          className="w-full rounded-2xl mb-10 object-cover max-h-125"
+          alt={post.title}
+          className="w-full max-h-[550px] object-cover rounded-3xl shadow-lg mb-12"
         />
       )}
 
-      {/* Render the rich-text content */}
+      {/* Article */}
       <div
-        className="prose prose-lg max-w-none prose-img:rounded-xl prose-a:text-ink-btn"
+        className="
+          prose
+          prose-lg
+          max-w-none
+
+          prose-headings:font-serif
+          prose-headings:text-ink-text
+          dark:prose-headings:text-white
+
+          prose-p:text-gray-700
+          dark:prose-p:text-gray-300
+
+          prose-strong:text-ink-text
+          dark:prose-strong:text-white
+
+          prose-a:text-ink-btn
+
+          prose-blockquote:border-l-4
+          prose-blockquote:border-ink-btn
+
+          prose-img:rounded-2xl
+
+          dark:prose-invert
+        "
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
 
-      {/* Post actions */}
-      <div className="flex gap-6 mt-12 pt-6 border-t border-gray-200 text-gray-500 font-medium">
-        <button className="flex items-center gap-2 hover:text-ink-btn transition-colors">
-          <Heart className="w-5 h-5" /> Like
+      {/* Footer */}
+      <div className="flex items-center gap-8 mt-14 pt-8 border-t border-gray-200 dark:border-ink-dark-border">
+        <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors">
+          <Heart className="w-5 h-5" />
+          Like
         </button>
 
-        <button className="flex items-center gap-2 hover:text-ink-btn transition-colors">
-          <MessageCircle className="w-5 h-5" /> Comment
+        <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-ink-btn transition-colors">
+          <MessageCircle className="w-5 h-5" />
+          Comment
         </button>
       </div>
     </article>

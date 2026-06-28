@@ -133,28 +133,26 @@ export default function Account({ user, setUser }) {
   };
 
   return (
-    <div className="p-8 max-w-3xl mx-auto font-sans text-ink-text pb-20 space-y-8">
+    <div className="p-8 max-w-3xl mx-auto font-sans text-ink-text dark:text-white pb-20 space-y-8 transition-colors duration-300">
       <div>
-        <h2 className="text-2xl font-bold font-serif mb-2">
-          Account Settings
-        </h2>
+        <h2 className="text-2xl font-bold font-serif mb-2">Account Settings</h2>
 
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 dark:text-gray-400 text-sm">
           Manage your personal information and security preferences.
         </p>
       </div>
 
       {/* Profile information */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="bg-gray-50 px-8 py-5 border-b border-gray-100 flex items-center justify-between">
-          <h3 className="font-bold text-gray-900">
+      <div className="bg-white dark:bg-ink-dark-card rounded-2xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-ink-dark-border overflow-hidden transition-colors duration-300">
+        <div className="bg-gray-50 dark:bg-ink-dark-sidebar px-8 py-5 border-b border-gray-100 dark:border-ink-dark-border flex items-center justify-between">
+          <h3 className="font-bold text-gray-900 dark:text-white">
             Profile Information
           </h3>
 
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 text-sm font-semibold text-ink-btn hover:text-opacity-80 transition-colors bg-ink-sidebar/30 px-3 py-1.5 rounded-md"
+              className="flex items-center gap-2 text-sm font-semibold text-white hover:text-opacity-80 transition-colors bg-ink-btn px-3 py-1.5 rounded-md"
             >
               <Edit3 className="w-4 h-4" />
               Edit Profile
@@ -195,21 +193,19 @@ export default function Account({ user, setUser }) {
               </div>
 
               <div className="space-y-1">
-                <p className="text-sm text-gray-500 font-semibold uppercase tracking-wider">
+                <p className="text-sm text-gray-400 font-semibold uppercase tracking-wider">
                   Display Name
                 </p>
 
-                <p className="text-xl font-bold text-gray-900 mb-3">
+                <p className="text-xl font-bold text-white mb-3">
                   {user?.name}
                 </p>
 
-                <p className="text-sm text-gray-500 font-semibold uppercase tracking-wider">
+                <p className="text-sm text-gray-400 font-semibold uppercase tracking-wider">
                   Email Address
                 </p>
 
-                <p className="text-base text-gray-800">
-                  {user?.email}
-                </p>
+                <p className="text-base text-white">{user?.email}</p>
               </div>
             </div>
           ) : (
@@ -240,7 +236,7 @@ export default function Account({ user, setUser }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-ink-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white dark:bg-ink-dark-sidebar dark:text-white"
                 />
               </div>
 
@@ -254,7 +250,7 @@ export default function Account({ user, setUser }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-ink-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white dark:bg-ink-dark-sidebar dark:text-white"
                 />
               </div>
 
@@ -262,7 +258,7 @@ export default function Account({ user, setUser }) {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-5 py-2.5 rounded-lg font-semibold text-gray-600 hover:bg-gray-100 flex items-center gap-2 transition-all"
+                  className="px-5 py-2.5 rounded-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#313943] flex items-center gap-2 transition-all"
                 >
                   <X className="w-4 h-4" />
                   Cancel
@@ -288,10 +284,10 @@ export default function Account({ user, setUser }) {
       </div>
 
       {/* Security settings */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="bg-gray-50 px-8 py-5 border-b border-gray-100 flex items-center gap-3">
-          <Lock className="w-5 h-5 text-gray-500" />
-          <h3 className="font-bold text-gray-900">
+      <div className="bg-white dark:bg-ink-dark-card rounded-2xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-ink-dark-border overflow-hidden transition-colors duration-300">
+        <div className="bg-gray-50 dark:bg-ink-dark-sidebar px-8 py-5 border-b border-gray-100 dark:border-ink-dark-border flex items-center gap-3">
+          <Lock className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+          <h3 className="font-bold text-gray-900 dark:text-white">
             Security & Password
           </h3>
         </div>
@@ -315,12 +311,9 @@ export default function Account({ user, setUser }) {
             </div>
           )}
 
-          <form
-            onSubmit={handlePasswordChange}
-            className="max-w-md space-y-4"
-          >
+          <form onSubmit={handlePasswordChange} className="max-w-md space-y-4">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">
+              <label className="block text-sm font-bold text-gray-400 mb-1">
                 Current Password
               </label>
 
@@ -329,12 +322,12 @@ export default function Account({ user, setUser }) {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-ink-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white dark:bg-ink-dark-sidebar dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">
+              <label className="block text-sm font-bold text-gray-400 mb-1">
                 New Password
               </label>
 
@@ -344,16 +337,16 @@ export default function Account({ user, setUser }) {
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-ink-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white dark:bg-ink-dark-sidebar dark:text-white"
               />
 
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-400 mt-1">
                 Must be at least 8 characters long.
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1">
+              <label className="block text-sm font-bold text-gray-400 mb-1">
                 Confirm New Password
               </label>
 
@@ -363,7 +356,7 @@ export default function Account({ user, setUser }) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-ink-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white dark:bg-ink-dark-sidebar dark:text-white"
               />
             </div>
 
@@ -371,7 +364,7 @@ export default function Account({ user, setUser }) {
               <button
                 type="submit"
                 disabled={passwordLoading}
-                className="bg-gray-800 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-black flex items-center gap-2 transition-all shadow-sm disabled:opacity-50"
+                className="bg-gray-800 dark:bg-ink-btn text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-black dark:hover:opacity-90 flex items-center gap-2 transition-all shadow-sm dark:shadow-black/30 disabled:opacity-50"
               >
                 {passwordLoading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

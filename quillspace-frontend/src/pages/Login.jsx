@@ -19,7 +19,6 @@ export default function Login({ setIsLoggedIn, setUser }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Retrieve the success message after a successful signup
   const successMessage = location.state?.successMessage;
 
   // Authenticate the user and initialize the session
@@ -38,15 +37,12 @@ export default function Login({ setIsLoggedIn, setUser }) {
       const data = await response.json();
 
       if (response.ok) {
-        // Persist the authenticated user session
         localStorage.setItem("QuillSpace_token", data.token);
         localStorage.setItem("QuillSpace_user", JSON.stringify(data.user));
 
-        // Update the application state
         setIsLoggedIn(true);
         setUser(data.user);
 
-        // Redirect to the home page
         navigate("/");
       } else {
         setError(data.message || "Failed to log in.");
@@ -61,140 +57,149 @@ export default function Login({ setIsLoggedIn, setUser }) {
   };
 
   return (
-    <div className="min-h-screen bg-ink-sidebar flex flex-col items-center justify-center p-4 font-sans text-ink-text relative">
-      {/* Back navigation */}
+    <div className="min-h-screen bg-ink-sidebar dark:bg-ink-dark-bg flex flex-col items-center justify-center p-4 font-sans text-ink-text dark:text-white transition-colors duration-300 relative">
+      {/* Back */}
       <Link
         to="/"
-        className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 text-ink-text hover:text-ink-btn font-semibold transition-colors"
+        className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 text-ink-text dark:text-white hover:text-ink-btn transition-colors"
       >
         <ArrowLeft className="w-5 h-5" />
         <span className="hidden sm:inline">Back to Home</span>
       </Link>
 
-      <div className="bg-ink-bg w-full max-w-sm rounded-2xl p-8 shadow-sm border border-teal-100 mt-8">
-        {/* Application logo */}
+      {/* Login Card */}
+      <div className="w-full max-w-sm bg-ink-bg dark:bg-ink-dark-card rounded-2xl p-8 shadow-xl dark:shadow-black/30 border border-teal-100 dark:border-ink-dark-border transition-colors duration-300">
+        {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8 font-serif text-3xl font-bold">
-          <Feather className="w-8 h-8" />
+          <Feather className="w-8 h-8 text-ink-btn" />
           <span>QuillSpace</span>
         </div>
 
-        {/* Signup success message */}
+        {/* Success */}
         {successMessage && (
-          <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm font-medium flex items-start gap-2">
-            <CheckCircle className="w-5 h-5 shrink-0" />
+          <div className="mb-5 p-3 rounded-lg border border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 flex items-start gap-2 text-sm">
+            <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <span>{successMessage}</span>
           </div>
         )}
 
-        {/* Login error message */}
+        {/* Error */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm font-medium flex items-start gap-2">
-            <AlertCircle className="w-5 h-5 shrink-0" />
+          <div className="mb-5 p-3 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-start gap-2 text-sm">
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Login form */}
-        <form onSubmit={handleLogin} className="space-y-4">
+        {/* Form */}
+        <form onSubmit={handleLogin} className="space-y-5">
+          {/* Email */}
           <div>
-            <label className="block text-sm font-semibold mb-1">Email</label>
+            <label className="block text-sm font-semibold mb-2">Email</label>
+
             <input
               type="email"
+              required
+              placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Email or address"
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar text-ink-text dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ink-btn transition-colors"
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block text-sm font-semibold mb-1">Password</label>
+            <label className="block text-sm font-semibold mb-2">Password</label>
 
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Password"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-ink-sidebar bg-white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar text-ink-text dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ink-btn transition-colors"
               />
 
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-white transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="w-4 h-4" />
+                  <EyeOff className="w-5 h-5" />
                 ) : (
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-5 h-5" />
                 )}
               </button>
             </div>
 
             <div className="flex justify-end mt-2">
-              <a
-                href="#"
-                className="text-xs text-gray-500 hover:text-ink-btn font-medium"
+              <button
+                type="button"
+                className="text-xs text-gray-500 dark:text-gray-400 hover:text-ink-btn transition-colors"
               >
                 Forgot Password?
-              </a>
+              </button>
             </div>
           </div>
 
-          <div className="pt-2">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-ink-btn text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-opacity-90 transition-opacity shadow-sm disabled:opacity-50"
-            >
-              {isLoading ? "LOGGING IN..." : "LOG IN"}
-            </button>
-          </div>
+          {/* Login Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-lg bg-ink-btn text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-sm dark:shadow-black/30 disabled:opacity-50"
+          >
+            {isLoading ? "Logging In..." : "Log In"}
+          </button>
 
-          <div className="flex items-center gap-2 w-full my-4">
-            <div className="flex-1 h-px bg-gray-200"></div>
-            <span className="text-xs text-gray-400 font-medium">
+          {/* Divider */}
+          <div className="flex items-center gap-3 py-2">
+            <div className="flex-1 h-px bg-gray-200 dark:bg-ink-dark-border" />
+
+            <span className="text-xs text-gray-400 dark:text-gray-500">
               or continue with
             </span>
-            <div className="flex-1 h-px bg-gray-200"></div>
+
+            <div className="flex-1 h-px bg-gray-200 dark:bg-ink-dark-border" />
           </div>
 
-          <div className="space-y-3">
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2.5 text-sm font-semibold hover:bg-gray-50 transition-colors"
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="w-4 h-4"
-              />
-              Google
-            </button>
+          {/* Google */}
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-3 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar hover:bg-gray-50 dark:hover:bg-[#313943] transition-colors"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
 
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2.5 text-sm font-semibold hover:bg-gray-50 transition-colors"
-            >
-              <img
-                src="https://www.svgrepo.com/show/512317/github-142.svg"
-                alt="GitHub"
-                className="w-4 h-4"
-              />
-              GitHub
-            </button>
-          </div>
+            <span className="font-medium">Continue with Google</span>
+          </button>
+
+          {/* GitHub */}
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-3 py-3 rounded-lg border border-gray-300 dark:border-ink-dark-border bg-white dark:bg-ink-dark-sidebar hover:bg-gray-50 dark:hover:bg-[#313943] transition-colors"
+          >
+            <img
+              src="https://www.svgrepo.com/show/512317/github-142.svg"
+              alt="GitHub"
+              className="w-5 h-5"
+            />
+
+            <span className="font-medium">Continue with GitHub</span>
+          </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-          <p className="text-sm text-gray-600 font-medium">
+        {/* Footer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-ink-dark-border text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
             <Link
               to="/signup"
-              className="text-ink-btn font-bold hover:underline"
+              className="font-semibold text-ink-btn hover:underline"
             >
               Sign up
             </Link>
