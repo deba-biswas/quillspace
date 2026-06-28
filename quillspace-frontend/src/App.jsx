@@ -10,6 +10,7 @@ import ReadPost from "./pages/ReadPost";
 import Posts from "./pages/Posts";
 import EditPost from "./pages/EditPost";
 import Account from "./pages/Account";
+import Settings from "./pages/Settings";
 
 const PlaceholderPage = ({ title }) => (
   <div className="p-8">
@@ -27,6 +28,20 @@ function App() {
     const savedUser = localStorage.getItem("QuillSpace_user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem("QuillSpace_theme") === "dark";
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("QuillSpace_theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("QuillSpace_theme", "light");
+    }
+  }, [isDarkMode]);
 
   return (
     <BrowserRouter>
@@ -71,7 +86,15 @@ function App() {
               />
               <Route
                 path="settings"
-                element={<PlaceholderPage title="Settings" />}
+                element={
+                  <Settings
+                    user={user}
+                    setUser={setUser}
+                    setIsLoggedIn={setIsLoggedIn}
+                    isDarkMode={isDarkMode}
+                    setIsDarkMode={setIsDarkMode}
+                  />
+                }
               />
             </>
           )}
