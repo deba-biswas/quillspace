@@ -161,6 +161,23 @@ app.put("/api/users/:id/password", async (req, res) => {
   }
 });
 
+// DELETE user account
+app.delete('/api/users/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await Post.deleteMany({ authorName: deletedUser.name });
+    
+    res.json({ message: 'Account and associated posts deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete account' });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
